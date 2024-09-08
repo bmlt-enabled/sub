@@ -17,8 +17,8 @@
                                 <thead>
                                 <tr>
                                     <th>{{ __('ID') }}</th>
-                                    <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Phone Number') }}</th>
+                                    <th>{{ __('Service Body Id') }}</th>
                                     <th>{{ __('Subscribed At') }}</th>
                                 </tr>
                                 </thead>
@@ -26,8 +26,8 @@
                                 @foreach ($subscribers as $subscriber)
                                     <tr>
                                         <td>{{ $subscriber->id }}</td>
-                                        <td>{{ $subscriber->name }}</td>
-                                        <td>{{ $subscriber->email }}</td>
+                                        <td>{{ $subscriber->phone_number }}</td>
+                                        <td>{{ $subscriber->service_body_id }}</td>
                                         <td>{{ $subscriber->created_at }}</td>
                                     </tr>
                                 @endforeach

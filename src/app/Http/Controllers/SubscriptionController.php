@@ -19,17 +19,19 @@ class SubscriptionController extends Controller
         // Get phone number and message body
         $phoneNumber = $request->input('From');
         $messageBody = strtolower(trim($request->input('Body')));
+        $serviceBody = $request->get("service_body_id");
 
         // Find the service body by the keyword, use default if none matches
+        // $defaultKeyword = env('SMS_DEFAULT_KEYWORD');
         $serviceBody = ServiceBody::where('keyword', $messageBody)
-            ->orWhereNull('keyword') // If no keyword is set, use default
+            ->orWhere('keyword') // Include default if no keyword matches
             ->first();
 
         if ($serviceBody) {
             // Attach the subscriber to the service body
-            Subscriber::updateOrCreate(
-                ['phone_number' => $phoneNumber],  // Check for the phone number
-                ['service_body_id' => $serviceBody->id]
+            Subscriber::create(
+                ['phone_number' => $phoneNumber,  // Check for the phone number
+                'service_body_id' => $serviceBody->id]
             );
 
             return response('You have been subscribed to ' . $serviceBody->name, 200);

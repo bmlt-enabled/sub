@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('service_bodies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('keyword')->nullable(); // Keyword can be null, using a default if not set
             $table->timestamps();
         });

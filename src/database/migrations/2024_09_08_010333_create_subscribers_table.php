@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('subscribers', function (Blueprint $table) {
             $table->id();
-            $table->string('phone_number')->unique();  // Ensuring phone numbers are unique
+            $table->string('phone_number');
             $table->unsignedBigInteger('service_body_id');
             $table->foreign('service_body_id')->references('id')->on('service_bodies');
             $table->timestamps();
+
+            $table->unique(['phone_number', 'service_body_id']);
         });
-
-
     }
 
     /**

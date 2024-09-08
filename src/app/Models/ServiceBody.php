@@ -9,7 +9,7 @@ class ServiceBody extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'keyword'];
+    protected $fillable = ['keyword'];
 
     public function subscribers()
     {
