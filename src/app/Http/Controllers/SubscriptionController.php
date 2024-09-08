@@ -8,6 +8,12 @@ use App\Models\ServiceBody;
 
 class SubscriptionController extends Controller
 {
+    public function index()
+    {
+        $subscribers = Subscriber::all();
+        return view('subscribers.index', compact('subscribers'));
+    }
+
     public function subscribe(Request $request)
     {
         // Get phone number and message body
