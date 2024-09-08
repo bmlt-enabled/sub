@@ -1,6 +1,13 @@
 version: '3.1'
 
 services:
+    sub:
+        build: .
+        restart: always
+        ports:
+            - 3200:80
+        volumes:
+            - ../src:/var/www/html/sub
     sub_db:
         image: mysql:5.7
         restart: always
