@@ -8,7 +8,7 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content', 'user_id'];
+    protected $fillable = ['content', 'feed_id'];
 
     public function user()
     {

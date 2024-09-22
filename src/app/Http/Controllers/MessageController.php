@@ -32,18 +32,19 @@ class MessageController extends Controller
 
         // Get the feed and subscribers
         $feed = Feed::findOrFail($request->feed_id);
-        $subscribers = $feed->subscribers;
 
-        // Send SMS to all subscribers in the feed
-        foreach ($subscribers as $subscriber) {
-            $this->twilioService->sendSms($subscriber->phone_number, $request->content);
+        if ($feed) {
+            Message::create([
+                'content' => $request->content,
+                'feed_id' => $feed->id,
+            ]);
+
+            $subscribers = $feed->subscribers;
+
+            foreach ($subscribers as $subscriber) {
+                $this->twilioService->sendSms($subscriber->phone_number, $request->content);
+            }
         }
-
-        // Store the message in the database
-        Message::create([
-            'content' => $request->content,
-            'feed_id' => $request->feed_id,
-        ]);
 
         return redirect()->route('messages.index')->with('success', 'Message sent!');
     }
