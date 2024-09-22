@@ -8,7 +8,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <form action="{{ route('messages.create') }}" method="POST">
+        <form action="{{ route('api.messages.send') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="content">Message Content:</label>

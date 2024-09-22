@@ -33,8 +33,6 @@ class SubscriberController extends Controller
         $messageBody = strtolower(trim($request->input('Body')));
         // $serviceBody = $request->get("service_body_id");
 
-        // Find the service body by the keyword, use default if none matches
-        // $defaultKeyword = env('SMS_DEFAULT_KEYWORD');
         $feed = Feed::where('subscribe_keyword', $messageBody)
             ->orWhere('subscribe_keyword') // Include default if no keyword matches
             ->first();
