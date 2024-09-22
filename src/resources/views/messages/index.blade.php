@@ -26,12 +26,23 @@
         </form>
         <hr>
         <h2>Message Log</h2>
-        <ul class="list-group">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Feed Name</th>
+                <th>Content</th>
+                <th>Created At</th>
+            </tr>
+            </thead>
+            <tbody>
             @foreach ($messages as $message)
-                <li class="list-group-item">
-                    {{ $message->content }} - {{ $message->created_at }}
-                </li>
+                <tr>
+                    <td>{{ $message->feed->name }}</td>
+                    <td>{{ $message->content }}</td>
+                    <td>{{ $message->created_at }}</td>
+                </tr>
             @endforeach
-        </ul>
+            </tbody>
+        </table>
     </div>
 @endsection
