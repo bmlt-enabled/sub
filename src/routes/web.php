@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ServiceBodyController;
-use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\FeedController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,11 @@ Auth::routes();
 
 // Admin routes for sending messages
 Route::middleware('auth')->group(function() {
-    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
-    Route::post('/messages', [MessageController::class, 'send'])->name('messages.send');
-    Route::get('/subscribers', [SubscriptionController::class, 'index'])->name('subscribers.index');
-    Route::get('/service-bodies', [ServiceBodyController::class, 'index'])->name('service-bodies.index');
-    Route::post('/service-bodies', [ServiceBodyController::class, 'update'])->name('service-bodies.update');
+    Route::resource('messages', MessageController::class);
+    Route::resource('feeds', FeedController::class);
+    Route::resource('subscribers', SubscriberController::class);
+
+    Route::get('/feeds/{feed}/subscribers', [SubscriberController::class, 'index'])->name('feeds.subscribers.index');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

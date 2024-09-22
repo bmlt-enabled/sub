@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->text('content');
-            $table->unsignedBigInteger('user_id');  // User who sent the message
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->unsignedBigInteger('user_id');  // User who sent the message
+            $table->unsignedBigInteger('feed_id');  // Feed associated with the message
+            // $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('feed_id')->references('id')->on('feeds')->onDelete('cascade');
             $table->timestamps();
         });
 

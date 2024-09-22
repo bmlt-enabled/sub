@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feed;
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
 use App\Models\ServiceBody;
 
-class SubscriptionController extends Controller
+class SubscriberController extends Controller
 {
     public function index()
     {
@@ -23,15 +24,15 @@ class SubscriptionController extends Controller
 
         // Find the service body by the keyword, use default if none matches
         // $defaultKeyword = env('SMS_DEFAULT_KEYWORD');
-        $serviceBody = ServiceBody::where('keyword', $messageBody)
-            ->orWhere('keyword') // Include default if no keyword matches
+        $feed = Feed::where('subscribe_keyword', $messageBody)
+            ->orWhere('subscribe_keyword') // Include default if no keyword matches
             ->first();
 
-        if ($serviceBody) {
+        if ($feed) {
             // Attach the subscriber to the service body
             Subscriber::create(
                 ['phone_number' => $phoneNumber,  // Check for the phone number
-                'service_body_id' => $serviceBody->id]
+                'feed_id' => $feed->id]
             );
 
             return response('You have been subscribed to ' . $serviceBody->name, 200);

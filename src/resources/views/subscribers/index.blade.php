@@ -1,42 +1,32 @@
-<!-- resources/views/subscribers/index.blade.php -->
-
 @extends('layouts.app')
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Subscribers') }}</div>
-
-                    <div class="card-body">
-                        @if ($subscribers->isEmpty())
-                            <p>{{ __('No subscribers found.') }}</p>
-                        @else
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>{{ __('ID') }}</th>
-                                    <th>{{ __('Phone Number') }}</th>
-                                    <th>{{ __('Service Body Id') }}</th>
-                                    <th>{{ __('Subscribed At') }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($subscribers as $subscriber)
-                                    <tr>
-                                        <td>{{ $subscriber->id }}</td>
-                                        <td>{{ $subscriber->phone_number }}</td>
-                                        <td>{{ $subscriber->service_body_id }}</td>
-                                        <td>{{ $subscriber->created_at }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
+        <table class="table mt-4">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Phone Number</th>
+                <td>Feed ID</td>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($subscribers as $subscriber)
+                <tr>
+                    <td>{{ $subscriber->id }}</td>
+                    <td>{{ $subscriber->phone_number }}</td>
+                    <td>{{ $subscribers->feed }}</td>
+                    <td>
+                        <form action="{{ route('feeds.subscribers.destroy', [$feed->id, $subscriber->id]) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection
