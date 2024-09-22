@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Feed;
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
-use App\Models\ServiceBody;
+use Twilio\TwiML\MessagingResponse;
 
 class SubscriberController extends Controller
 {
@@ -20,7 +20,7 @@ class SubscriberController extends Controller
         // Get phone number and message body
         $phoneNumber = $request->input('From');
         $messageBody = strtolower(trim($request->input('Body')));
-        $serviceBody = $request->get("service_body_id");
+        // $serviceBody = $request->get("service_body_id");
 
         // Find the service body by the keyword, use default if none matches
         // $defaultKeyword = env('SMS_DEFAULT_KEYWORD');
@@ -28,16 +28,27 @@ class SubscriberController extends Controller
             ->orWhere('subscribe_keyword') // Include default if no keyword matches
             ->first();
 
-        if ($feed) {
-            // Attach the subscriber to the service body
-            Subscriber::create(
-                ['phone_number' => $phoneNumber,  // Check for the phone number
-                'feed_id' => $feed->id]
-            );
+        $response = new MessagingResponse();
 
-            return response('You have been subscribed to ' . $serviceBody->name, 200);
+        if ($feed) {
+            $existingSubscriber = Subscriber::where('phone_number', $phoneNumber)
+                ->where('feed_id', $feed->id)
+                ->first();
+
+            if ($existingSubscriber) {
+                $response->message('You are already subscribed to ' . $feed->name);
+            } else {
+                Subscriber::create(
+                    ['phone_number' => $phoneNumber,
+                    'feed_id' => $feed->id]
+                );
+
+                $response->message('You have been subscribed to ' . $feed->name);
+            }
+        } else {
+            $response->message('Invalid keyword');
         }
 
-        return response('Invalid keyword', 200);
+        return response($response, 200)->header('Content-Type', 'text/xml');
     }
 }

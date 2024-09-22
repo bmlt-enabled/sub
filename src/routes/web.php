@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\MessageController;
-use App\Http\Controllers\ServiceBodyController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\FeedController;
 use Illuminate\Support\Facades\Auth;
