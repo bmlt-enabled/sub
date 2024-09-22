@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        <h1>Feed: {{ $feed->name }}</h1>
         <table class="table mt-4">
             <thead>
             <tr>
@@ -14,7 +15,7 @@
                 <tr>
                     <td>{{ $subscriber->phone_number }}</td>
                     <td>
-                        <form action="{{ route('feeds.subscribers.destroy', [$feed_id, $subscriber->id]) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('feeds.subscribers.destroy', [$feed->id, $subscriber->id]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>

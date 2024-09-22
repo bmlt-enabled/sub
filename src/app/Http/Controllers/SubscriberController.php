@@ -12,9 +12,10 @@ class SubscriberController extends Controller
     public function index()
     {
         $feed_id = request('feed');
+        $feed = Feed::find($feed_id);
         $subscribers = Subscriber::where('feed_id', $feed_id)
             ->get();
-        return view('subscribers.index', ["feed_id"=>$feed_id], compact('subscribers'));
+        return view('subscribers.index', ["feed"=>$feed], compact('subscribers'));
     }
 
     public function destroy()
