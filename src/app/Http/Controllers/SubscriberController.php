@@ -11,8 +11,18 @@ class SubscriberController extends Controller
 {
     public function index()
     {
-        $subscribers = Subscriber::all();
-        return view('subscribers.index', compact('subscribers'));
+        $feed_id = request('feed');
+        $subscribers = Subscriber::where('feed_id', $feed_id)
+            ->get();
+        return view('subscribers.index', ["feed_id"=>$feed_id], compact('subscribers'));
+    }
+
+    public function destroy()
+    {
+        $feed_id = request('feed');
+        Subscriber::where('feed_id', $feed_id)
+            ->delete();
+        return redirect()->route('feeds.subscribers.index', ['feed' => $feed_id]);
     }
 
     public function subscribe(Request $request)

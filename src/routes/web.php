@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function() {
     Route::resource('subscribers', SubscriberController::class);
 
     Route::get('/feeds/{feed}/subscribers', [SubscriberController::class, 'index'])->name('feeds.subscribers.index');
+    Route::delete('/feeds/{feed}/subscribers', [SubscriberController::class, 'destroy'])->name('feeds.subscribers.destroy');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
