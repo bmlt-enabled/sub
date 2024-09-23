@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('unsubscribe_keyword')->unique();
             $table->timestamps();
         });
-
-        DB::statement('ALTER TABLE feeds ADD CONSTRAINT check_subscribe_unsubscribe_keywords CHECK (subscribe_keyword <> unsubscribe_keyword)');
     }
 
     /**
