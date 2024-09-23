@@ -31,10 +31,10 @@ class SubscriberController extends Controller
         // Get phone number and message body
         $phoneNumber = $request->input('From');
         $messageBody = strtolower(trim($request->input('Body')));
-        // $serviceBody = $request->get("service_body_id");
 
+        // Find the feed by subscribe or unsubscribe keyword
         $feed = Feed::where('subscribe_keyword', $messageBody)
-            ->orWhere('subscribe_keyword') // Include default if no keyword matches
+            ->orWhere('unsubscribe_keyword', $messageBody)
             ->first();
 
         $response = new MessagingResponse();
@@ -45,16 +45,29 @@ class SubscriberController extends Controller
                 ->first();
 
             if ($existingSubscriber) {
-                $response->message('You are already subscribed to ' . $feed->name);
+                if ($messageBody === strtolower($feed->unsubscribe_keyword)) {
+                    // Unsubscribe the user
+                    $existingSubscriber->delete();
+                    $response->message('You have been unsubscribed from ' . $feed->name);
+                } else {
+                    // User is already subscribed
+                    $response->message('You are already subscribed to ' . $feed->name);
+                }
             } else {
-                Subscriber::create(
-                    ['phone_number' => $phoneNumber,
-                    'feed_id' => $feed->id]
-                );
-
-                $response->message('You have been subscribed to ' . $feed->name);
+                if ($messageBody === strtolower($feed->subscribe_keyword)) {
+                    // Subscribe the user
+                    Subscriber::create([
+                        'phone_number' => $phoneNumber,
+                        'feed_id' => $feed->id
+                    ]);
+                    $response->message('You have been subscribed to ' . $feed->name);
+                } else {
+                    // Invalid keyword
+                    $response->message('Invalid keyword');
+                }
             }
         } else {
+            // Invalid keyword
             $response->message('Invalid keyword');
         }
 
