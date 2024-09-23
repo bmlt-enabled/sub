@@ -22,6 +22,7 @@
                         <td>{{ $feed->subscribe_keyword }}</td>
                         <td>{{ $feed->unsubscribe_keyword }}</td>
                         <td>
+                            <a href="{{ route('feeds.edit', $feed->id) }}" class="btn btn-info">Edit</a>
                             <a href="{{ route('feeds.subscribers.index', $feed->id) }}" class="btn btn-info">Subscribers</a>
                         </td>
                     </tr>
