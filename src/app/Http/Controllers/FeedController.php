@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Feed;
+use App\Services\RootServerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class FeedController extends Controller
 {
+    protected RootServerService $rootServerService;
+
+    public function __construct(RootServerService $rootServerService)
+    {
+        $this->rootServerService = $rootServerService;
+    }
+
     public function index()
     {
         $feeds = Feed::all();
@@ -16,16 +24,13 @@ class FeedController extends Controller
 
     public function create()
     {
-        $response = Http::get('https://latest.aws.bmlt.app/main_server/client_interface/json/?switcher=GetServiceBodies');
-        $availableServiceBodies = $response->json();
-        return view('feeds.create', ['availableServiceBodies' => $availableServiceBodies]);
+        return view('feeds.create', ['availableServiceBodies' => $this->rootServerService->getServiceBodies()]);
     }
 
     public function edit($id)
     {
         $feed = Feed::findOrFail($id);
-        $response = Http::get('https://latest.aws.bmlt.app/main_server/client_interface/json/?switcher=GetServiceBodies');
-        $availableServiceBodies = $response->json();
+        $availableServiceBodies = $this->rootServerService->getServiceBodies();
         return view('feeds.edit', compact('feed', 'availableServiceBodies'));
     }
 

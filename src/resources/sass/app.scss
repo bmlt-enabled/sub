@@ -6,3 +6,52 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+/* Default light mode styles */
+/* app.scss */
+
+/* Default light mode styles */
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+/* Dark mode for navbar */
+nav.navbar.dark-mode {
+    background-color: #333;
+    color: #ffffff;
+}
+
+/* Dark mode for tables */
+table.dark-mode {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border-color: #444;
+}
+
+th.dark-mode, td.dark-mode {
+    border-color: #444;
+}
+
+/* Dark mode for input fields and textareas */
+input.dark-mode, textarea.dark-mode, select.dark-mode {
+    background-color: #333;
+    color: #ffffff;
+    border-color: #555;
+}
+
+/* Dark mode for buttons */
+button.dark-mode {
+    background-color: #444;
+    color: #ffffff;
+}
+
+/* Dark mode for form labels and text */
+label.dark-mode {
+    color: #ffffff;
+}
+
+
+/* app.scss */
