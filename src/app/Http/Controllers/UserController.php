@@ -5,6 +5,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\RootServerService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -16,10 +17,18 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
+    protected $rootServerService;
+
+    public function __construct(RootServerService $rootServerService)
+    {
+        $this->rootServerService = $rootServerService;
+    }
+
     // Show the form for creating a new user
     public function create()
     {
-        return view('users.create');
+        $serviceBodies = $this->rootServerService->getServiceBodies();
+        return view('users.create', compact('serviceBodies'));
     }
 
     // Store a newly created user
@@ -28,14 +37,17 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:8'
+            'password' => 'required|min:8',
+            'service_bodies' => 'array'
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
+
+        $user->serviceBodies()->sync($validated['service_bodies'] ?? []);
 
         return redirect()->route('users.index')->with('success', 'User created successfully');
     }
@@ -43,7 +55,9 @@ class UserController extends Controller
     // Show the form for editing the specified user
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $serviceBodies = $this->rootServerService->getServiceBodies();
+        $userServiceBodies = $user->serviceBodies->pluck('id')->toArray();
+        return view('users.edit', compact('user', 'serviceBodies', 'userServiceBodies'));
     }
 
     // Update the specified user
@@ -52,7 +66,8 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:8'
+            'password' => 'nullable|min:8',
+            'service_bodies' => 'array'
         ]);
 
         $user->update([
@@ -60,6 +75,8 @@ class UserController extends Controller
             'email' => $validated['email'],
             'password' => $validated['password'] ? bcrypt($validated['password']) : $user->password,
         ]);
+
+        $user->serviceBodies()->sync($validated['service_bodies'] ?? []);
 
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
