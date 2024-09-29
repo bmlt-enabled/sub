@@ -56,7 +56,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $serviceBodies = $this->rootServerService->getServiceBodies();
-        $userServiceBodies = $user->serviceBodies->pluck('id')->toArray();
+        $userServiceBodies = $user->serviceBodies ? $user->serviceBodies->pluck('id')->toArray() : [];
         return view('users.edit', compact('user', 'serviceBodies', 'userServiceBodies'));
     }
 
