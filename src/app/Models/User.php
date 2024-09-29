@@ -43,10 +43,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
     
-    public function serviceBodies()
-    {
-        return $this->belongsToMany(ServiceBody::class);
-    }
 
     public function serviceBodies()
     {
