@@ -15,7 +15,9 @@
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
-        <table class="table table-bordered mt-4">
+        <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Create New User</a>
+
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
