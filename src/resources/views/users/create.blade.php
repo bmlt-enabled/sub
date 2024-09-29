@@ -33,6 +33,15 @@
                 <input type="password" class="form-control" id="password" name="password">
             </div>
 
+            <div class="form-group">
+                <label for="service_bodies">Service Bodies:</label>
+                <select multiple class="form-control" id="service_bodies" name="service_bodies[]">
+                    @foreach($serviceBodies as $serviceBody)
+                        <option value="{{ $serviceBody['id'] }}">{{ $serviceBody['name'] }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
