@@ -64,10 +64,17 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 
-    // Delete the specified user
     public function destroy(User $user)
     {
+        // Check if the user trying to delete is the authenticated user
+        if (auth()->user()->id == $user->id) {
+            return redirect()->route('users.index')->with('error', 'You cannot delete your own account.');
+        }
+
+        // If it's not the logged-in user, proceed with deletion
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully');
+
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
+
 }

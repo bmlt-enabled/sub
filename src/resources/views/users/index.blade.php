@@ -5,10 +5,14 @@
 @section('content')
     <div class="container">
         <h1>User Management</h1>
-        <a href="{{ route('users.create') }}" class="btn btn-primary">Add User</a>
 
+        <!-- Display success or error messages -->
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
         <table class="table table-bordered mt-4">
@@ -31,7 +35,10 @@
                         <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger"
+                                    @if(auth()->user()->id == $user->id) disabled @endif>
+                                Delete
+                            </button>
                         </form>
                     </td>
                 </tr>
