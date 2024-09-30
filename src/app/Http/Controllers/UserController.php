@@ -21,7 +21,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('serviceBodies')->get();
-        return view('users.index', compact('users'));
+        $serviceBodies = $this->rootServerService->getServiceBodies();
+        return view('users.index', compact('users', 'serviceBodies'));
     }
 
     // Show the form for creating a new user
