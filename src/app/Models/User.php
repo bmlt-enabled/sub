@@ -43,4 +43,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function serviceBodyIds()
+    {
+        return $this->belongsToMany(ServiceBody::class, 'service_body_user')
+            ->pluck('service_body_id')
+            ->toArray();
+    }
 }
