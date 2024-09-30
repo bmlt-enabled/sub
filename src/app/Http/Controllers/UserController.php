@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('serviceBodies')->get();
-        $serviceBodies = $this->rootServerService->getServiceBodies();
+        $serviceBodies = collect($this->rootServerService->getServiceBodies())->sortBy('name');
         return view('users.index', compact('users', 'serviceBodies'));
     }
 
