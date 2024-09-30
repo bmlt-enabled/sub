@@ -37,7 +37,7 @@
                 <label for="service_bodies">Service Bodies:</label>
                 <select multiple class="form-control" id="service_bodies" name="service_bodies[]">
                     @foreach($serviceBodies as $serviceBody)
-                        <option value="{{ $serviceBody['id'] }}">{{ $serviceBody['name'] }}</option>
+                        <option value="{{ $serviceBody['id'] }}">{{ $serviceBody['name'] }} ({{ $serviceBody['id'] }})</option>
                     @endforeach
                 </select>
             </div>
