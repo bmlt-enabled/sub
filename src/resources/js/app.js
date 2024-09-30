@@ -32,3 +32,4 @@ window.onload = function() {
 
 // Attach the function to the button
 document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+import 'bootstrap';
