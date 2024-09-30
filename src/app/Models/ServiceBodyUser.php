@@ -10,4 +10,6 @@ class ServiceBodyUser extends Model
     use HasFactory;
 
     protected $table = 'service_body_user';
+
+    protected $fillable = ['service_body_id'];
 }
