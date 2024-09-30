@@ -44,8 +44,4 @@ class User extends Authenticatable
     ];
 
 
-    public function serviceBodies()
-    {
-        return $this->belongsToMany(ServiceBody::class);
-    }
 }
