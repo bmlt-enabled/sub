@@ -36,9 +36,10 @@
                     <td>
                         @foreach($serviceBodies as $serviceBody)
                             @if($user->serviceBodies->contains('service_body_id', $serviceBody['id']))
-                                {{ $serviceBody['name'] }}@if(!$loop->last), @endif
+                                <li>{{ $serviceBody['name'] }}</li>
                             @endif
                         @endforeach
+                        </ul>
                     </td>
                     <td>
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
