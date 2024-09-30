@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function serviceBodies()
     {
-        return $this->belongsToMany(ServiceBody::class, 'service_body_user');
+        return $this->hasMany(ServiceBodyUser::class, 'user_id');
     }
 }

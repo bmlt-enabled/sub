@@ -47,7 +47,7 @@ class UserController extends Controller
             'password' => bcrypt($validated['password']),
         ]);
 
-        $user->serviceBodies()->sync($validated['service_bodies'] ?? []);
+        $user->serviceBodies()->saveMany($validated['service_bodies'] ?? []);
 
         return redirect()->route('users.index')->with('success', 'User created successfully');
     }
@@ -76,7 +76,7 @@ class UserController extends Controller
             'password' => $validated['password'] ? bcrypt($validated['password']) : $user->password,
         ]);
 
-        $user->serviceBodies()->sync($validated['service_bodies'] ?? []);
+        $user->serviceBodies()->saveMany($validated['service_bodies'] ?? []);
 
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
