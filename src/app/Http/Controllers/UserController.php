@@ -10,18 +10,18 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    // Display a list of users
-    public function index()
-    {
-        $users = User::all();
-        return view('users.index', compact('users'));
-    }
-
     protected $rootServerService;
 
     public function __construct(RootServerService $rootServerService)
     {
         $this->rootServerService = $rootServerService;
+    }
+
+    // Display a list of users
+    public function index()
+    {
+        $users = User::all();
+        return view('users.index', compact('users'));
     }
 
     // Show the form for creating a new user
