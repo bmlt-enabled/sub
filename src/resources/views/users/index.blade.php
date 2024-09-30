@@ -23,6 +23,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Service Bodies</th>
                 <th>Actions</th>
             </tr>
             </thead>

@@ -20,7 +20,7 @@ class UserController extends Controller
     // Display a list of users
     public function index()
     {
-        $users = User::all();
+        $users = User::with('serviceBodies')->get();
         return view('users.index', compact('users'));
     }
 
