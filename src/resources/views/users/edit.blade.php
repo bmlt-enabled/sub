@@ -39,7 +39,7 @@
                 <select multiple class="form-control" id="service_bodies" name="service_bodies[]">
                     @foreach($serviceBodies as $serviceBody)
                         <option value="{{ $serviceBody['id'] }}" {{ in_array($serviceBody['id'], $userServiceBodies) ? 'selected' : '' }}>
-                            {{ $serviceBody['name'] }}
+                            {{ $serviceBody['name'] }} ({{ $serviceBody['id'] }})
                         </option>
                     @endforeach
                 </select>
