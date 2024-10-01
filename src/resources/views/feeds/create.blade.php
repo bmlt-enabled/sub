@@ -8,8 +8,8 @@
             <div class="mb-3">
                 <label for="service_body_id">Select Service Body</label>
                 <select name="service_body_id" id="service_body_id" class="form-control" required>
-                    @foreach ($availableServiceBodies as $availableServiceBody)
-                        <option value="{{ $availableServiceBody['id'] }}">{{ $availableServiceBody['name'] }} ({{ $availableServiceBody['id'] }})</option>
+                    @foreach ($availableServiceBodies as $serviceBody)
+                        <option value="{{ $serviceBody['id'] }}">{{ $serviceBody['name'] }} ({{ $serviceBody['id'] }})</option>
                     @endforeach
                 </select>
             </div>

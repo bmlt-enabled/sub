@@ -24,7 +24,7 @@ class FeedController extends Controller
 
     public function create()
     {
-        $availableServiceBodies = auth()->user()->serviceBodies->toArray();
+        $availableServiceBodies = $this->rootServerService->getServiceBodies();
         return view('feeds.create', ['availableServiceBodies' => $availableServiceBodies]);
     }
 
