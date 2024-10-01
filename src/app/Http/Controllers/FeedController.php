@@ -24,14 +24,14 @@ class FeedController extends Controller
 
     public function create()
     {
-        $availableServiceBodies = auth()->user()->serviceBodies->pluck('service_body_id')->toArray();
+        $availableServiceBodies = auth()->user()->serviceBodies->toArray();
         return view('feeds.create', ['availableServiceBodies' => $availableServiceBodies]);
     }
 
     public function edit($id)
     {
         $feed = Feed::findOrFail($id);
-        $availableServiceBodies = auth()->user()->serviceBodies->pluck('service_body_id')->toArray();
+        $availableServiceBodies = auth()->user()->serviceBodies->toArray();
         return view('feeds.edit', compact('feed', 'availableServiceBodies'));
     }
 
