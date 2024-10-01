@@ -35,7 +35,7 @@ class FeedController extends Controller
             }
         }
 
-        return view('feeds.create', compact('serviceBodies', 'availableServiceBodies'));
+        return view('feeds.create', compact('availableServiceBodies'));
     }
 
     public function edit($id)
