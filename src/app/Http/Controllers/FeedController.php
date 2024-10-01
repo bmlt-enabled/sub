@@ -24,24 +24,14 @@ class FeedController extends Controller
 
     public function create()
     {
-        $availableServiceBodies = auth()->user()->serviceBodies->toArray();
-        $serviceBodies = $this->rootServerService->getServiceBodies();
-
-        foreach ($availableServiceBodies as &$availableServiceBody) {
-            $serviceBodyId = $availableServiceBody['service_body_id'];
-            $serviceBodyKey = array_search($serviceBodyId, array_column($serviceBodies, 'id'));
-            if ($serviceBodyKey !== false) {
-                $availableServiceBody['name'] = $serviceBodies[$serviceBodyKey]['name'];
-            }
-        }
-
+        $availableServiceBodies = $this->availableServiceBodies();
         return view('feeds.create', compact('availableServiceBodies'));
     }
 
     public function edit($id)
     {
+        $availableServiceBodies = $this->availableServiceBodies();
         $feed = Feed::findOrFail($id);
-        $availableServiceBodies = auth()->user()->serviceBodies->toArray();
         return view('feeds.edit', compact('feed', 'availableServiceBodies'));
     }
 
@@ -72,5 +62,20 @@ class FeedController extends Controller
         Feed::create($request->all());
 
         return redirect()->route('feeds.index')->with('success', 'Feed created successfully.');
+    }
+
+    public function availableServiceBodies() : array {
+        $availableServiceBodies = auth()->user()->serviceBodies->toArray();
+        $serviceBodies = $this->rootServerService->getServiceBodies();
+
+        foreach ($availableServiceBodies as &$availableServiceBody) {
+            $serviceBodyId = $availableServiceBody['service_body_id'];
+            $serviceBodyKey = array_search($serviceBodyId, array_column($serviceBodies, 'id'));
+            if ($serviceBodyKey !== false) {
+                $availableServiceBody['name'] = $serviceBodies[$serviceBodyKey]['name'];
+            }
+        }
+
+        return $availableServiceBodies;
     }
 }
