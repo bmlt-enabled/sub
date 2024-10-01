@@ -26,6 +26,15 @@ class FeedController extends Controller
     {
         $availableServiceBodies = auth()->user()->serviceBodies->toArray();
         $serviceBodies = $this->rootServerService->getServiceBodies();
+
+        foreach ($availableServiceBodies as &$availableServiceBody) {
+            $serviceBodyId = $availableServiceBody['service_body_id'];
+            $serviceBodyKey = array_search($serviceBodyId, array_column($serviceBodies, 'id'));
+            if ($serviceBodyKey !== false) {
+                $availableServiceBody['name'] = $serviceBodies[$serviceBodyKey]['name'];
+            }
+        }
+
         return view('feeds.create', compact('serviceBodies', 'availableServiceBodies'));
     }
 
