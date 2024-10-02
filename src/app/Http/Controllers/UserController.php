@@ -46,6 +46,7 @@ class UserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
+            'rights' => json_encode($request->input('rights', [])), // Store rights
         ]);
 
         if (isset($validated['service_bodies'])) {
@@ -81,6 +82,7 @@ class UserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => $validated['password'] ? bcrypt($validated['password']) : $user->password,
+            'rights' => json_encode($request->input('rights', [])), // Update rights
         ]);
 
         $user->serviceBodies()->delete(); // Remove existing relationships

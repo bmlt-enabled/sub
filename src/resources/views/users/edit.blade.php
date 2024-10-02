@@ -35,6 +35,22 @@
             </div>
 
             <div class="form-group">
+                <label for="rights">Rights:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="rights[]" id="manage_users" value="manage_users" {{ in_array('manage_users', json_decode($user->rights, true) ?? []) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="manage_users">
+                        Manage Users
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="rights[]" id="edit_feeds" value="edit_feeds" {{ in_array('edit_feeds', json_decode($user->rights, true) ?? []) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="edit_feeds">
+                        Edit Feeds
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="service_bodies">Service Bodies:</label>
                 <select multiple class="form-control" id="service_bodies" name="service_bodies[]">
                     @foreach($serviceBodies as $serviceBody)
