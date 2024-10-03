@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label for="service_body_id">Service Body</label>
                 <input type="hidden" name="service_body_id" value="{{ $feed->service_body_id }}">
-                <select disabled class="form-control">
+                <select class="form-control">
                     @foreach($availableServiceBodies as $serviceBody)
                         <option value="{{ $serviceBody['id'] }}" {{ $feed->service_body_id == $serviceBody['id'] ? 'selected' : '' }}>
                             {{ $serviceBody['name'] }}
