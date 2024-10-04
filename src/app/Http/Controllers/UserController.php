@@ -46,8 +46,7 @@ class UserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
-            'manage_users' => $request->has('manage_users') ? 1 : 0,
-            'edit_feeds' => $request->has('edit_feeds') ? 1 : 0,
+            'rights' => $request->has('rights') ? $request->get('rights') : [],
         ]);
 
         if (isset($validated['service_bodies'])) {
