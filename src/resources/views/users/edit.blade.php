@@ -37,13 +37,13 @@
             <div class="form-group">
                 <label for="rights">Rights:</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="rights[]" id="manage_users" value="manage_users" {{ $user->manage_users ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="rights[]" id="manage_users" value="manage_users" {{ in_array("manage_users", $user->rights) ? 'checked' : '' }}>
                     <label class="form-check-label" for="manage_users">
                         Manage Users
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="rights[]" id="edit_feeds" value="edit_feeds" {{ $user->edit_feeds ? 'checked' : '' }}>
+                    <input class="form-check-input" type="checkbox" name="rights[]" id="edit_feeds" value="edit_feeds" {{ in_array("edit_feeds", $user->rights) ? 'checked' : '' }}>
                     <label class="form-check-label" for="edit_feeds">
                         Edit Feeds
                     </label>
