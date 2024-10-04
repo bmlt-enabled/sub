@@ -15,11 +15,6 @@ class Feed extends Model
         'unsubscribe_keyword',
     ];
 
-    public function serviceBody()
-    {
-        return $this->belongsTo(ServiceBody::class);
-    }
-
     public function subscribers()
     {
         return $this->hasMany(Subscriber::class);
